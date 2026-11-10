@@ -8,6 +8,26 @@
   // Central engineering coordinator. Specialist agents live in ./agents/*.md
   "default_agent": "orchestrator",
 
+  // Models excluded from selection: Muse Spark contributor models are not
+  // approved for private source code or confidential material (their
+  // data-training terms require explicit user approval). `disabled` removes
+  // them from the catalog entirely. Re-enable only with user approval.
+  // (A `provider.use` policy cannot express this: it would have to deny the
+  // whole `opencode`/`opencode-go` providers.)
+  "providers": {
+    "opencode": {
+      "models": {
+        "muse-spark-1.3": { "disabled": true }
+      }
+    },
+    "opencode-go": {
+      "models": {
+        "muse-spark-1.2-contributor": { "disabled": true },
+        "muse-spark-1.3-contributor": { "disabled": true }
+      }
+    }
+  },
+
   // Global permission baseline. Applies to every agent; per-agent files append
   // their own rules after these. The last matching rule wins, so specific
   // exceptions come after broad rules.
