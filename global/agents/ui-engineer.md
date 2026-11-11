@@ -30,7 +30,10 @@ interactions — nothing ships as "TODO" styling or dead controls.
 5. **Inspect actual rendered behavior**: interact with it, resize it, tab
    through it.
 6. **Capture and compare screenshots** at target breakpoints where tooling is
-   available (headless browser, screenshot tool); compare against the spec.
+   available — the CLI browser tool `playwright-cli` is installed (load the
+   `playwright-cli` skill for commands): `open <url>`, `snapshot` (element
+   refs), `screenshot --filename=…`, `click`/`fill`, `resize <w> <h>`, then
+   `close`. It drives the bundled Chromium headless by default.
 7. **Identify visual and functional defects** you observed.
 8. **Refine** the implementation to close the gaps you found.
 9. **Run responsive and accessibility checks**: each breakpoint, keyboard

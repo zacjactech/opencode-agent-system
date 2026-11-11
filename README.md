@@ -191,10 +191,14 @@ the task's intended scope · claims re-run locally (e.g., `node --test`).
 - Benchmark/smoke evidence is bounded-task evidence, not a guarantee for
   large or open-ended work; free-tier models are rate-limit and
   tool-call-reliability variable.
-- No Playwright/k6/axe/security scanners are installed; browser-based test
-  automation and formal load testing require per-project tooling (see
-  workflow docs). Firefox headless screenshots work but are flaky while
-  other Firefox processes hold profiles.
+- Browser automation for agents is CLI-native: `playwright-cli` (global) +
+  bundled Chromium, driven through the normal `shell` permission (approval
+  prompts apply). The built-in `browser` Code Mode namespace stays removed
+  until a desktop app/browser client is attached to the service — allow rules
+  are already staged in `opencode.jsonc`.
+- k6, axe-core, and security scanners are not installed (report-only
+  decision); load testing and a11y/dependency scanning need per-project
+  tooling.
 - `external_directory: ask` means cross-directory reads in sessions prompt
   unless approved.
 - SEO specialist is dormant by design — invoke only for products with a web

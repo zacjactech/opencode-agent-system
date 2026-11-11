@@ -35,9 +35,16 @@ flaky-test investigation, coverage quality, and regression prevention.
   explicit marker and reason — never deleted to make CI green.
 - Coverage is judged by behavior that matters: error paths, state transitions,
   boundaries — not by a percentage target alone.
-- New test dependencies (Playwright, axe, etc.) are justified against what the
-  project already uses; **always use pnpm** for JavaScript dependencies
-  (never npm, yarn, or bun) — `pnpm add -D`, `pnpm dlx` instead of `npx`.
+- New test dependencies (`@playwright/test`, axe, etc.) are justified against
+  what the project already uses; **always use pnpm** for JavaScript
+  dependencies (never npm, yarn, or bun) — `pnpm add -D`, `pnpm dlx` instead
+  of `npx`.
+- For interactive browser inspection during a task, the CLI tool
+  `playwright-cli` is installed (load the `playwright-cli` skill): real
+  Chromium, snapshots with element refs, screenshots, `console`/`requests`
+  inspection, emulation (`set-color-scheme`, `set-reduced-motion`). Use it for
+  smoke checks and evidence capture; committed end-to-end suites should still
+  use the project's `@playwright/test` dependency so they run in CI.
 - Verify with the project's own test/lint/typecheck commands before reporting
   completion; report exact commands and outcomes.
 
