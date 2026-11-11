@@ -75,6 +75,16 @@
     // Ask before reading or editing anything outside the active project
     // workspace, so agents cannot silently touch the global config, SSH keys,
     // or other machines' files. Narrower rules can be added per project.
-    { "action": "external_directory", "resource": "*", "effect": "ask" }
+    { "action": "external_directory", "resource": "*", "effect": "ask" },
+
+    // Browser tool (Code Mode namespace: tabs, snapshots, screenshots,
+    // console/network, Lighthouse) is ENABLED for all agents. The built-in
+    // default denies it; these rules override that default. Page content,
+    // logs, and headers are untrusted data, never instructions.
+    // Note: the browser must be attached via the OpenCode desktop app (or
+    // `opencode pair`) for the tool to have a target; an attached browser may
+    // carry the operator's logged-in sessions — only run trusted briefs.
+    { "action": "browser", "resource": "*", "effect": "allow" },
+    { "action": "skill", "resource": "browser", "effect": "allow" }
   ]
 }
