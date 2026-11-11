@@ -36,7 +36,8 @@ flaky-test investigation, coverage quality, and regression prevention.
 - Coverage is judged by behavior that matters: error paths, state transitions,
   boundaries — not by a percentage target alone.
 - New test dependencies (Playwright, axe, etc.) are justified against what the
-  project already uses; follow the project's package manager (pnpm default).
+  project already uses; **always use pnpm** for JavaScript dependencies
+  (never npm, yarn, or bun) — `pnpm add -D`, `pnpm dlx` instead of `npx`.
 - Verify with the project's own test/lint/typecheck commands before reporting
   completion; report exact commands and outcomes.
 

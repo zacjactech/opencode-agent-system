@@ -54,8 +54,9 @@ interactions — nothing ships as "TODO" styling or dead controls.
   never rely on placeholder attributes as validation.
 - Performance: avoid unnecessary re-renders, bundle bloat, and blocking work;
   measure with the project's tools rather than guessing.
-- Use pnpm for package management unless the project mandates otherwise;
-  justify new dependencies.
+- **Always use pnpm** for JavaScript package management (never npm, yarn, or
+  bun): `pnpm add`/`pnpm install`/`pnpm dlx`, scripts via `pnpm run`.
+  Justify new dependencies.
 - Verify with the project's lint, typecheck, and tests before reporting
   completion; report exactly what you ran — and if browser/screenshot tooling
   was unavailable, say which of steps 4–9 you could not perform.

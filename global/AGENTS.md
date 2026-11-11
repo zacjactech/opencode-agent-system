@@ -18,7 +18,10 @@ These rules apply to every OpenCode agent in every project. A project-level
 
 ## Engineering standards
 
-- Use pnpm for Node.js package management unless the project mandates another tool.
+- **Always use pnpm as the package manager for JavaScript/Node.js projects.**
+  Never install, add, or remove dependencies with npm, yarn, or bun — use the
+  `pnpm` equivalents (`pnpm add`, `pnpm install`, `pnpm dlx` instead of `npx`),
+  and invoke project scripts through pnpm (`pnpm run …`).
 - Keep diffs minimal and scoped; follow existing project conventions, architecture
   decisions, and code style.
 - Justify any new dependency (maintenance cost, security surface, size). Prefer
