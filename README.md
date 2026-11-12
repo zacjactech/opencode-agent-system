@@ -228,14 +228,24 @@ the task's intended scope · claims re-run locally (e.g., `node --test`).
   exceptions after broad rules (agent frontmatter is evaluated last).
 - **Run hangs with no output:** provider stream stall — kill and retry; if
   persistent, check `opencode` server logs (`opencode debug paths` → log).
+- **Long agent run hits the execution window mid-task:** capture the
+  `sessionID` from `--format json` output, then resume that exact session
+  with `opencode run --session <sessionID> --auto "…resolve open items in ≤3
+  tool calls each, then deliver the full report now"` — prior tool results
+  persist, so nothing verified is lost. Use this before re-running a review
+  from scratch; pairs with design-reviewer's bounded-investigation rule.
 
 ## Known limitations
 
 - Benchmark/smoke evidence is bounded-task evidence, not a guarantee for
   large or open-ended work; free-tier models are rate-limit and
   tool-call-reliability variable.
-- Browser automation for agents is CLI-native: `playwright-cli` (global) +
-  bundled Chromium. `playwright-cli *` is allow-listed in the shell baseline
+- Browser automation for agents is CLI-native: `playwright-cli` (global);
+  **Chromium + Firefox installed** (Firefox matrix validated 2026-11-12:
+  5-viewport overflow, billing/theme toggles, FAQ, 0 console errors).
+  **WebKit needs one privileged step** (blocked on sudo password — run
+  `sudo npx playwright install-deps webkit`). `playwright-cli *` is
+  allow-listed in the shell baseline
   (2026-11-11), so visual-QA sweeps run without approval fatigue; other
   shell use stays `ask`. The built-in `browser` Code Mode namespace has allow
   rules active but needs a browser/desktop client attached to the service to
@@ -245,10 +255,17 @@ the task's intended scope · claims re-run locally (e.g., `node --test`).
   (observed 2026-11-12 on `opencode-go/mimo-v2.6-flash`: active seconds then
   minutes of silence). Recovery: kill + retry; if it recurs on the same task,
   per-run `--model` override with a recorded reason (escalation policy).
-- No axe/k6/scanner is *installed* (report-only decision): a11y gating runs
-  ad-hoc by injecting axe-core from CDN via `playwright-cli run-code` (zero
-  install, evidence format in the pipeline-test project); load testing and
-  dependency scanning need per-project tooling.
+- No axe/k6/scanner is *installed* (report-only decision): a11y gating is
+  **standardized in the global standards §7** as a zero-install method —
+  axe-core injected from CDN via `playwright-cli run-code` (evidence format:
+  `.ui-qa/axe-report.json` in the reference pipeline test). A *CI* a11y
+  gate remains a per-project decision; load testing and dependency scanning
+  need per-project tooling.
+- The UI standards load ambiently via `instructions` (approved trade-off:
+  every session — including backend-only — carries ~190 lines). V2 has no
+  per-agent instructions; if token cost ever outweighs the load guarantee,
+  swap the `instructions` entry for a `skills/` entry in one config line
+  (weaker: loading becomes agent-discretion).
 - `external_directory: ask` means cross-directory reads in sessions prompt
   unless approved.
 - SEO specialist is dormant by design — invoke only for products with a web

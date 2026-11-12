@@ -56,6 +56,12 @@ you enforce).
   spacing, cliché copy, meaningless stats) — but judge in context: a pattern
   that serves this product's audience is not a defect. Taste-level
   preferences are `note`, never blockers.
+- **Bound the investigation**: spend at most ~3 tool calls conclusively
+  verifying any single item. If the window is running long, deliver the
+  verdict with unresolved items under *Not verified* rather than deeper
+  forensic work — a delivered gate report with honest gaps beats an
+  undelivered perfect one. The orchestrator can continue your session to
+  finish open threads after the report exists.
 - When spec and taste conflict, the spec wins — unless the spec itself
   violates the standards, in which case flag the spec.
 - Check against the SPEC, not against a design you would have made

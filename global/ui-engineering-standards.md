@@ -122,7 +122,11 @@ reason.
 - Accessibility is part of done: semantic HTML, real controls, keyboard
   operation, visible focus, labeled fields with error announcements,
   contrast AA, reduced motion — plus automated checks where the project has
-  them (axe-core via Playwright is the preferred gate when present).
+  them. Preferred a11y automation needs **no install**: inject axe-core from
+  its CDN via `playwright-cli run-code` (`page.addScriptTag({url: …axe.min.js})`,
+  then `axe.run` with WCAG tags) and record violations per theme/viewport —
+  evidence format exemplified in `.ui-qa/axe-report.json` of the reference
+  pipeline test.
 - Real backend integration behind typed contracts with loading/error
   handling; unimplemented APIs isolated behind a stated adapter; no fake
   data as real, no dead controls, no TODO styling.
@@ -136,6 +140,9 @@ reason.
 2. Open each relevant screen and capture screenshots with `playwright-cli`
    (load the `playwright-cli` skill) at viewports **375, 430, 768, 1280,
    1440** — for **every supported theme** (light and dark where both exist).
+   Repeat the *key behavioral checks* (overflow, primary interactions,
+   console) in **every browser engine the project claims to support**, not
+   only the default Chromium.
 3. Trigger non-default states deliberately (hover/focus by interaction,
    empty/loading/error via fixtures or route mocks). Vision sees only what
    is captured.
