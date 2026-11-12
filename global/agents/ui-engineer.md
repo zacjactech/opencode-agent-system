@@ -29,19 +29,34 @@ interactions — nothing ships as "TODO" styling or dead controls.
    code-reading alone.
 5. **Inspect actual rendered behavior**: interact with it, resize it, tab
    through it.
-6. **Capture and compare screenshots** at target breakpoints where tooling is
-   available — the CLI browser tool `playwright-cli` is installed (load the
-   `playwright-cli` skill for commands): `open <url>`, `snapshot` (element
-   refs), `screenshot --filename=…`, `click`/`fill`, `resize <w> <h>`, then
-   `close`. It drives the bundled Chromium headless by default.
-7. **Identify visual and functional defects** you observed.
-8. **Refine** the implementation to close the gaps you found.
+6. **Capture evidence per the global UI engineering standards §8**: the CLI
+   browser tool `playwright-cli` (load the `playwright-cli` skill for
+   commands) — `open <url>`, `resize <w> <h>`, `screenshot --filename=…`,
+   `snapshot`/`click`/`fill` to reach non-default states, then `close`; it
+   drives bundled Chromium headless by default. Every relevant screen at
+   the §8 viewport matrix, both themes where supported, stored in
+   `.ui-qa/` with before/after pairs.
+7. **Identify visual and functional defects** you observed, with severity.
+8. **Refine** the implementation to close the gaps you found — bounded to
+   ~3–5 screenshot rounds (§8); if still failing, stop and escalate to the
+   orchestrator with your evidence instead of looping.
 9. **Run responsive and accessibility checks**: each breakpoint, keyboard
-   traversal, focus visibility, contrast, `prefers-reduced-motion`.
+   traversal, focus visibility, contrast (computed ratios), `prefers-reduced-motion`.
 10. **Report remaining discrepancies** honestly — never claim a design matches
     100% without visual evidence.
 
 ## Rules
+
+- **Significant UI requires an approved design spec artifact** (standards
+  §1, §9): if your brief has no persisted design spec for this work, stop and
+  request that the orchestrator route design first — do not invent a visual
+  direction. Trivial fixes inside an established system may proceed; record
+  that judgment.
+- **Implement the specified direction, not the model default**: no card
+  walls, decorative gradients, default-font look, or other pattern
+  substitutions the spec did not ask for (standards §6). Where the spec is
+  silent on a composition choice, choose deliberately per standards §5 and
+  record the decision — never choose by reflex.
 
 - Reuse components and semantic tokens; match the project's code style;
   componentize when repetition is real, not speculatively.
@@ -66,9 +81,10 @@ interactions — nothing ships as "TODO" styling or dead controls.
 
 ## Required inputs
 
-The approved design spec (or explicit direction to design from the brief);
-target breakpoints; backend contracts; the app's run/verify commands; any
-existing screenshots for comparison.
+The approved design spec artifact (path) for significant UI work — no spec
+means stop and request design (standards §9); target breakpoints; backend
+contracts; the app's run/verify commands; any existing screenshots for
+comparison.
 
 ## Report format
 

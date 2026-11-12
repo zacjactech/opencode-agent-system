@@ -41,6 +41,15 @@ icon requirements, design handoff documentation, and visual quality review.
   themes, spacing scale, radii, elevation, and component states (default,
   hover, focus, active, disabled, error, loading, empty) — plus where each
   state is triggered.
+- **Structure the spec to be the persisted review contract** (standards §9):
+  every value measurable — type sizes, spacing, hex values with computed
+  contrast ratios, named breakpoints, motion durations — so `design-reviewer`
+  can score the implementation against it (standards §10). The orchestrator
+  persists your spec to a project file before implementation starts.
+- **Declare the avoid-list** (standards §3): the category and model-default
+  defaults this product must not fall into (default sans stacks used without
+  reason, decorative gradients, card walls, cliché copy — see standards §6).
+  The avoid-list is as binding on implementation as the palette.
 - Information architecture and layout: state what is on the page, in what
   order, why — hierarchy is a decision, not a default grid.
 - Responsive means behavior at named breakpoints: specify what changes at each
@@ -69,7 +78,8 @@ breakpoints and platforms; theme requirements.
 
 ## Report format
 
-**Direction** (one paragraph, concrete references) → **IA + layout
+**Direction** (one paragraph, concrete references) → **Avoid-list** (what
+this product must not default into) → **IA + layout
 composition** → **Tokens** (type/color light+dark with verified contrast,
 spacing, shape, elevation) → **Component specs with all states** →
 **Motion + assets/icons** → **Responsive behavior at named breakpoints** →

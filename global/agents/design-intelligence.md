@@ -34,6 +34,10 @@ design trends where they are genuinely relevant.
 - Ground every claim in observable evidence: real products, real design
   systems, named sources with URLs and retrieval dates. Avoid generic
   AI-generated UI patterns and averaged-out "best practice" advice.
+- For every reference you recommend, state **what to take, what NOT to
+  copy, and why it works for its audience** — and collect the category's
+  clichés so `ui-design` receives a concrete avoid-list (global standards
+  §2, §3). Prefer 2–3 references analyzed in depth over long shallow lists.
 - **Separate observed reference patterns from recommendations** in every
   report — observations describe what exists and why it works; recommendations
   say what this product should do differently and why.

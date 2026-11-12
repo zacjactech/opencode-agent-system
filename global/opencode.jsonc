@@ -8,6 +8,12 @@
   // Central engineering coordinator. Specialist agents live in ./agents/*.md
   "default_agent": "orchestrator",
 
+  // Global UI engineering standards (pipeline, visual QA workflow, quality
+  // gate). Loaded after AGENTS.md in every session — agent files reference
+  // its sections instead of duplicating rules. `~/` resolves from $HOME, so
+  // it applies regardless of workspace location.
+  "instructions": ["~/.config/opencode/ui-engineering-standards.md"],
+
   // Models excluded from selection: Muse Spark contributor models are not
   // approved for private source code or confidential material (their
   // data-training terms require explicit user approval). `disabled` removes
@@ -52,6 +58,13 @@
     { "action": "shell", "resource": "git ls-files *", "effect": "allow" },
     { "action": "shell", "resource": "git blame *", "effect": "allow" },
     { "action": "shell", "resource": "git stash list *", "effect": "allow" },
+
+    // Browser QA loop (approved 2026-11-11): playwright-cli runs JS inside
+    // the bundled headless Chromium only — it cannot execute host commands.
+    // It CAN attach to a running browser, so briefs stay trusted-only.
+    // Placed after `shell *` ask (last match wins) to de-friction the
+    // screenshot loop; git/env/deny rules below are unaffected.
+    { "action": "shell", "resource": "playwright-cli *", "effect": "allow" },
 
     // Pushes always ask for explicit approval (chosen policy: ask, not deny).
     // Note: answering "Allow always" to a push prompt saves a durable per-project

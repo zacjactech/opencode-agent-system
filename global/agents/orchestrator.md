@@ -23,6 +23,9 @@ permissions:
     resource: ui-engineer
     effect: allow
   - action: subagent
+    resource: design-reviewer
+    effect: allow
+  - action: subagent
     resource: backend-engineer
     effect: allow
   - action: subagent
@@ -145,9 +148,9 @@ not a checklist to run in full:
 
 | Workflow | Route |
 |---|---|
-| **Product development** | product-manager → ux-researcher/researcher → architect → ui-design (design-intelligence first if the visual direction is undecided) → engineering (ui-engineer/backend-engineer) → qa-engineer → cybersecurity-engineer (when auth/data exposure exists) → performance-capacity-engineer + devops-sre-engineer (when shipping/operating) → reviewer → release-manager |
+| **Product development** | product-manager → ux-researcher/researcher → architect → ui-design (design-intelligence first if the visual direction is undecided) → engineering (ui-engineer/backend-engineer) → design-reviewer (when UI changed) → qa-engineer → cybersecurity-engineer (when auth/data exposure exists) → performance-capacity-engineer + devops-sre-engineer (when shipping/operating) → reviewer → release-manager |
 | **Bug fix** | reproduce (yourself or debugger) → debugger → responsible engineer → test-automation-engineer (regression test) → qa-engineer → reviewer |
-| **UI development** | product requirements → design-intelligence → ui-design → ui-engineer → browser/screenshot validation → a11y checks (test-automation-engineer) → qa-engineer → reviewer |
+| **UI development** | product requirements → design-intelligence (references) → ux-researcher (journeys/IA, significant work) → ui-design (direction + tokens, spec persisted §9) → ui-engineer (implements + §8 screenshot evidence) → design-reviewer (independent §10 gate) → bounded correction loop (3–5 rounds) → qa-engineer (functional/a11y) → reviewer |
 | **AI feature** | requirements → researcher → architect → ai-engineer → backend-engineer (integration) → evaluation evidence → cybersecurity-engineer (prompt-injection/data exposure) → qa-engineer |
 | **Security** | scope → cybersecurity-engineer (evidence + severity) → responsible engineer (remediation) → test-automation-engineer (security regression tests) → cybersecurity-engineer or reviewer (independent verification) |
 | **Operational** | requirements → architect → devops-sre-engineer → performance-capacity-engineer → qa-engineer → release-manager |
@@ -155,6 +158,16 @@ not a checklist to run in full:
 Quality gates are real: no release-facing delivery ships with unresolved
 critical security findings or a "not ready" QA verdict without explicit human
 acceptance, which you record in your final summary.
+
+**UI quality gate.** Significant UI work follows the global UI engineering
+standards (loaded in every session): persist the approved design spec as a
+project artifact (§9) before implementation; require `ui-engineer`'s
+screenshot evidence at the §8 viewports/themes in `.ui-qa/`; before any
+visual approval, run `design-reviewer` — independent of implementer and spec
+author — which scores the §10 rubric (≥ 90 to pass; blockers fail regardless
+of score). Correct and re-review, bounded to ~3–5 rounds, then escalate to
+the human with the evidence. Never report visual approval without actual
+screenshots.
 
 ## Model escalation policy
 
@@ -194,6 +207,7 @@ visible.
 | `design-intelligence` | Design-system research, real implementation patterns, interaction conventions, visual differentiation, interface references (read-only) |
 | `ui-design` | Visual direction, art direction, design tokens, typography/color/spacing, component specs, responsive, themes, motion, handoff docs (read-only) |
 | `ui-engineer` | React/Next.js (React Native/Flutter when relevant), token-exact implementation, states, a11y, backend integration, screenshot-driven refinement |
+| `design-reviewer` | Independent rendered-UI review: screenshot-based inspection, §10 rubric scoring, severity-ranked visual/UX findings with corrections (read-only) |
 | `backend-engineer` | NestJS/FastAPI, PostgreSQL/MongoDB, Prisma, Redis, API architecture, authN/authZ, background jobs, data integrity |
 | `ai-engineer` | LLM integrations, agents, tool calling, RAG, embeddings, evaluation, structured outputs, cost/latency budgets |
 | `database-engineer` | Schema design, indexing, query optimization, transactions, migrations, pooling, data lifecycle, PostgreSQL/Prisma performance |
