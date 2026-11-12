@@ -243,9 +243,15 @@ the task's intended scope · claims re-run locally (e.g., `node --test`).
 - Browser automation for agents is CLI-native: `playwright-cli` (global);
   **Chromium + Firefox installed** (Firefox matrix validated 2026-11-12:
   5-viewport overflow, billing/theme toggles, FAQ, 0 console errors).
-  **WebKit needs one privileged step** (blocked on sudo password — run
-  `sudo npx playwright install-deps webkit`). `playwright-cli *` is
-  allow-listed in the shell baseline
+  **WebKit is an accepted limitation on this machine (Arch):** Playwright's
+  build targets Ubuntu 24.04 sonames — 12 libs missing incl. AUR-only
+  ICU74-era versioned libs and a probable dead-end (`libbacktrace.so.0`),
+  plus a permanent host-validation skip on an unsupported distro. Full
+  `ldd` evidence: `.ui-qa/limitation-fixes.md` in the reference pipeline
+  test. If a project claims WebKit/Safari support, prefer the official
+  Playwright container over machine-global legacy libs; on
+  Ubuntu/Debian `npx playwright install-deps webkit` is the one-step path.
+  `playwright-cli *` is allow-listed in the shell baseline
   (2026-11-11), so visual-QA sweeps run without approval fatigue; other
   shell use stays `ask`. The built-in `browser` Code Mode namespace has allow
   rules active but needs a browser/desktop client attached to the service to
