@@ -250,7 +250,7 @@ the task's intended scope · claims re-run locally (e.g., `node --test`).
   `ldd` evidence: `.ui-qa/limitation-fixes.md` in the reference pipeline
   test. If a project claims WebKit/Safari support, prefer the official
   Playwright container over machine-global legacy libs; on
-  Ubuntu/Debian `npx playwright install-deps webkit` is the one-step path.
+  Ubuntu/Debian `pnpm dlx playwright install-deps webkit` is the one-step path.
   `playwright-cli *` is allow-listed in the shell baseline
   (2026-11-11), so visual-QA sweeps run without approval fatigue; other
   shell use stays `ask`. The built-in `browser` Code Mode namespace has allow
